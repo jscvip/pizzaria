@@ -1,0 +1,112 @@
+@font-face {
+    font-family: 'Berlin Sans FB Demi Bold';
+    src: url('../../font/berlin.eot');
+    src: url('../../font/berlin.eot?#iefix')
+    format('embedded-opentype'),
+    url('../../font/berlin.svg#Berlin Sans FB Demi Bold')
+    format('svg'),
+    url('../../font/berlin.woff')
+    format('woff'),
+    url('../../font/berlin.ttf')
+    format('truetype');
+    font-weight: normal;
+    font-style: normal;}
+body{
+    font-family: "Berlin Sans FB Demi Bold", "Tahoma", serif;
+}
+.row{
+    margin: 0;
+}
+/*Header*/
+.topo{
+    height: 132px;
+    background-image: url("../../images/topo.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: #900000;
+}
+
+.logo{
+    padding-top: 3%;
+    padding-left: 20px;
+}
+
+#busca, #selBusca{
+    background-color: #900000;
+    color: #fff;
+}
+.busca{
+    float: right;
+    padding: 5% 5px;
+}
+/* Fim Header*/
+
+/* Rodape*/
+.rodape{
+    text-align: center;
+    height: 25px;
+    background-color: #900000;
+    color: #fff;
+}
+/* Fim Rodape*/
+#form-login {
+	background: #fff;
+    width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    padding-top: 10px;
+    
+    border-bottom-color: rgb(212, 212, 212);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-image-outset: 0px;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-color: rgb(212, 212, 212);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: rgb(212, 212, 212);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: rgb(212, 212, 212);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
+    background-color: #900000;
+    color: #fff;
+}
+.btn-circle:hover{
+    color: #ffff00;
+}
+.btn-quadrado {
+  width: 40px;
+  height: 50px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 5px;
+}
+
+.img-slider{
+    width: 100%;
+}
+
+.nav li a{
+    padding-top: 8px;
+    padding-bottom: 8px;
+}

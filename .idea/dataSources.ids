@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - pizzaria@localhost" uuid="692d8c4b-a545-4b33-a574-a34b895a47bd">
+    <database-info product="MySQL" version="5.5.27-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="pizzaria"/>
+    <table name="administradores" schema="" catalog="pizzaria" type="TABLE">
+      <column name="id" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" autoIncrement="true"/>
+      <column name="nome" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="usuario" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="senha" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nivel" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="status" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1" def="JzAn"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="categorias" schema="" catalog="pizzaria" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nome" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_id_categoria" table="pizzas" schema="" catalog="pizzaria" columns="id_categoria"/>
+    </table>
+    <table name="clientes" schema="" catalog="pizzaria" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nome" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="endereco" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="bairro" sqlType="VARCHAR" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cep" sqlType="VARCHAR" precision="9" scale="0" nullable="true" jdbcType="12"/>
+      <column name="fone_res" sqlType="VARCHAR" precision="16" scale="0" nullable="true" jdbcType="12"/>
+      <column name="fone_cel" sqlType="VARCHAR" precision="16" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <column name="data_nasc" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="login" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="senha" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="observacao" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="status" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1" def="JzEn"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="ingredientes" schema="" catalog="pizzaria" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nome" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="valor" sqlType="DOUBLE" precision="3" scale="2" nullable="true" jdbcType="8"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_id_ingredientes" table="itens_pizza" schema="" catalog="pizzaria" columns="id_ingredientes"/>
+    </table>
+    <table name="itens_pizza" schema="" catalog="pizzaria" type="TABLE">
+      <column name="id_pizza" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="id_ingredientes" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <foreign-key name="FK_id_ingredientes" columns="id_ingredientes" ref-table="ingredientes" ref-schema="" ref-catalog="pizzaria" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="FK_id_pizza" columns="id_pizza" ref-table="pizzas" ref-schema="" ref-catalog="pizzaria" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="FK_id_ingredientes" unique="false" columns="id_ingredientes"/>
+      <index name="FK_id_pizza" unique="false" columns="id_pizza"/>
+    </table>
+    <table name="login" schema="" catalog="pizzaria" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_admin" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="data" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="metas" schema="" catalog="pizzaria" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_tipo_meta" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="texto" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_tipos_meta" columns="id_tipo_meta" ref-table="tipo_metas" ref-schema="" ref-catalog="pizzaria" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="FK_tipos_meta" unique="false" columns="id_tipo_meta"/>
+    </table>
+    <table name="pizzas" schema="" catalog="pizzaria" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_categoria" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="nome" sqlType="VARCHAR" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <column name="valor" sqlType="DOUBLE" precision="3" scale="2" nullable="true" jdbcType="8"/>
+      <column name="img_detalhes" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="img_inicio" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1" def="JzEn"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_id_categoria" columns="id_categoria" ref-table="categorias" ref-schema="" ref-catalog="pizzaria" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="FK_id_pizza" table="itens_pizza" schema="" catalog="pizzaria" columns="id_pizza"/>
+      <index name="FK_id_categoria" unique="false" columns="id_categoria"/>
+    </table>
+    <table name="tipo_metas" schema="" catalog="pizzaria" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nome" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_tipos_meta" table="metas" schema="" catalog="pizzaria" columns="id_tipo_meta"/>
+    </table>
+  </data-source>
+</component>
