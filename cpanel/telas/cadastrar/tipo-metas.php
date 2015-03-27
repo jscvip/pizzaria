@@ -3,7 +3,7 @@ if (isset($_POST)) {
     if ($_POST != null) {
         if(verificaCadastro("tipo_metas","nome",$_POST["meta"])) {
 
-            if (cadastrar("tipo_metas", $_POST)) {
+            if (cadastro("tipo_metas", $_POST)) {
                 $sucesso = "Tipo de Meta gravado com sucesso!";
             } else {
                 $erro = "Não foi possivel gravar tipo de meta!";

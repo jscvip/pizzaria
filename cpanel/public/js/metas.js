@@ -1,4 +1,22 @@
 $(document).ready(function(){
+    var busca = $("#txt_busca"),
+        carregar = $("#carregar_busca"),
+        form_busca = $("#form_busca");
+    busca.keyup(function() {
+        if(busca.val() == ""){
+            //carrega a pagina inicial
+            carregar.load("telas/dashboard.php");
+        }else{
+            $.ajax({
+                type: "post",
+                url: "telas/buscar.php",
+                data: form_busca.serialize(),
+                success: function(data){
+                    carregar.html(data);
+                }
+            })
+        }
+    });
 
     $("input[type=radio][name=tipo_metas]").click(function(){
         var escolhido = $(this).val();
@@ -42,4 +60,7 @@ $(document).ready(function(){
     $('#confirmDelete').find('.modal-footer #confirm').on('click', function () {
         $(this).data('form').submit();
     });
+
+
+
 });

@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_POST)) {
     if ($_POST != null) {
         obrigatorio("Nome", addslashes($_POST["nome"]),"text");
@@ -12,7 +13,7 @@ if (isset($_POST)) {
             if (verificaCadastro("administradores", "nome", $_POST["nome"])) {
                 if (verificaCadastro("administradores", "usuario", $_POST["usuario"])) {
 
-                    if (cadastrar("administradores", $_POST)) {
+                    if (cadastro("administradores", $_POST)) {
                         $sucesso = "Administrador gravado com sucesso!";
                         $_POST =null;
                     } else {

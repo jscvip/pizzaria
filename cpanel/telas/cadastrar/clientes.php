@@ -20,9 +20,9 @@ if (isset($_POST)) {
         if (empty($obrigatorio)) {
 
             if (verificaCadastro("clientes", "nome", $_POST["nome"])) {
-                if (verificaCadastro("clientes", "login", $_POST["login"])) {
+                if (verificaCadastro("Login", "login", $_POST["login"])) {
 
-                    if (cadastrar("clientes", $_POST)) {
+                    if (cadastro("clientes", $_POST)) {
                         $sucesso = "Cliente gravado com sucesso!";
                         $_POST =null;
                     } else {
@@ -124,9 +124,7 @@ if (isset($_POST)) {
                 <label for="observacao" class="col-sm-2 control-label">Observação: </label>
 
                 <div class="col-sm-10">
-                    <textarea name="obs" class="form-control" rows="3">
-                        <?php if(!empty($_POST['obs'])) echo $_POST['obs']; ?>
-                    </textarea>
+                    <textarea name="obs" class="form-control" rows="3"><?php if(!empty($_POST['obs'])) echo $_POST['obs']; ?></textarea>
                 </div>
             </div>
             <input type="hidden" class="form-control" id="status" name="status" value="1">

@@ -15,8 +15,8 @@ if (isset($_POST)) {
             $nome=addslashes($_POST["nome"]);
             $usuario=addslashes($_POST["usuario"]);
             $nivel=$_POST["nivel"];
-            if (verificaAlterar("administradores", "nome", $_POST["nome"],$id)) {
-                if (verificaAlterar("administradores", "usuario", $_POST["usuario"],$id)) {
+            if (verificaAlterar($tabela, "nome", $_POST["nome"],$id)) {
+                if (verificaAlterar($tabela,"usuario", $_POST["usuario"],$id)) {
 
                     $pdo = Conexao::getInstance();
                     try {
@@ -85,8 +85,6 @@ $dados = listarId($tabela,$_GET["id"]);
                     </select>
                 </div>
             </div>
-            <input type="hidden" class="form-control" id="status" name="status" value="<?php echo $dados["status"];?>">
-
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10 text-right">
                     <button type="submit" class="btn btn-warning active">Atualizar</button>

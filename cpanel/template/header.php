@@ -1,13 +1,18 @@
 <?php
 session_start();
-
 include_once('../functions/config.php');
+
+if (isset($_GET["acao"])) {
+    if ($_GET["acao"] == "logout") {
+        unset($_SESSION);
+    }
+}
 if (!$_SESSION['logado']) {
     header("Location:login.php");
 }
 
 try {
-    carregaIncludes(array("login", "url", "cadastrar", "utils","conf_delete"));
+    carregaIncludes(array("login", "url", "cadastrar", "utils", "conf_delete", "acesso"));
 } catch (Exception $e) {
     echo $e->getMessage();
 }
@@ -29,9 +34,9 @@ try {
     <link rel="stylesheet" href="<?php echo $base_url; ?>public/css/bootstrap-theme.min.css ">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="<?php echo $base_url; ?>public/js/bootstrap.min.js "></script>
+    <script type="text/javascript" src="<?php echo $base_url; ?>public/js/jquery_old.js "></script>
 
-    <script type="text/javascript" src="<?php echo $base_url; ?>public/js/jquery.js "></script>
+    <script src="<?php echo $base_url; ?>public/js/bootstrap.min.js "></script>
 
     <script type="text/javascript" src="<?php echo $base_url; ?>public/js/bootstrap.js "></script>
     <script type="text/javascript" src="<?php echo $base_url; ?>public/js/npms/affix.js"></script>
@@ -48,13 +53,9 @@ try {
     <script type="text/javascript" src="<?php echo $base_url; ?>public/js/npms/transition.js"></script>
 
     <script type="text/javascript" src="<?php echo $base_url; ?>cpanel/public/js/maskedinput.min.js"></script>
-
     <script type="text/javascript" src="<?php echo $base_url; ?>cpanel/public/js/metas.js"></script>
-
     <script type="text/javascript" src="<?php echo $base_url; ?>cpanel/public/js/tinymce/tinymce.min.js"></script>
-
     <script type="text/javascript" src="<?php echo $base_url; ?>cpanel/public/js/jquery.maskMoney.js"></script>
-
     <link rel="stylesheet" type="text/css" href="<?php echo $base_url; ?>cpanel/public/css/template.css ">
 </head>
 <body>
@@ -78,18 +79,19 @@ try {
 
 <div class="container-fluid" style="padding: 0;max-width: 800px;">
     <div class="row cabecalho">
-        <img class="logo" src="../images/logo.png" width="30%">
+       <a href="index.php"> <img class="logo" src="../images/logo.png" width="30%"></a>
 
         <div class="busca" style="" style="padding: 0; display: block;">
-            <form class="form-inline" action="" method="post">
+            <form class="form-inline" action="" method="post" id="form_busca">
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control input-sm" name="busca" id="busca" placeholder="Busca">
-                        <span class="input-group-btn">
-                                <button type="submit" class="btn btn-circle">
+                        <input type="text" class="form-control input-sm" name="busca" id="txt_busca"
+                               placeholder="Busca">
+                        <!--<span class="input-group-btn">
+                                <button name="bt_busca" type="submit" class="btn btn-circle">
                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                 </button>
-                            </span>
+                        </span>-->
                     </div>
                 </div>
             </form>

@@ -27,17 +27,36 @@ if (isset($_GET)) {
                     echo "Erro: " . $e->getMessage();
                 }
                 ?>
-            <?php } elseif ($_GET["acao"] == "editar") {
-                $sucesso = "Editado com sucesso!";
-            } elseif ($_GET["acao"] == "deletar") {
-                $sucesso = "Deletado com sucesso!";
+            <?php } elseif ($_GET["acao"] == "deletar") {
+                if(isset($_GET["id"])) {
+                    $id = $_GET["id"];
+
+                    if(excluir($tabela)) {
+
+                        $pdo = Conexao::getInstance();
+                        try {
+                            $update = $pdo->prepare("DELETE FROM " . $tabela . " WHERE id=" . $id);
+                            $update->execute();
+
+                            if ($update->rowCount() == 1) {
+                                $sucesso = "Deletado com sucesso!";
+                            } else {
+                                $erro = "Não foi possível Deletar!";
+                            }
+                        } catch (PDOException $e) {
+                            echo "Erro: " . $e->getMessage();
+                        }
+                    }else{
+                        $erro = "Você não tem permissão para essa ação!";
+                    }
+                }
             }
         }
     }
 }
 ?>
 <div class="panel panel-info">
-    <div class="panel-heading text-center">:.LISTADO ADMINISTRADORES.:</div>
+    <div class="panel-heading text-center">:.LISTANDO ADMINISTRADORES.:</div>
     <div class="panel-body">
         <?php $dados = listar($tabela); ?>
         <table class="table table-hover" style="margin-bottom: 0;">
@@ -59,13 +78,6 @@ if (isset($_GET)) {
                 'delta' => 7,
                 'attributes'=>"class='pg btn btn-default'",
                 'curPageLinkClassName'=>'btn btn-info cur',
-                //'append' => true,
-                //'separator' => ' | ',
-                //'clearIfVoid' => false,
-                //'urlVar' => 'entrant',
-                //'useSessions' => true,
-                //'closeSession' => true,
-                //'mode'  => 'Sliding',    //try switching modes,
                 'mode' => 'Jumping',
             );
             $pager = & Pager::factory($params);
@@ -92,11 +104,16 @@ if (isset($_GET)) {
                         <?PHP } ?>
                     </td>
                     <td style="text-align: center; padding: 2px;">
-                        <a href="?p=alterar_administradores&id=<?php echo $admin["id"]; ?>"
-                           class=" btn btn-primary quadrado" title="Editar"><i
-                                class="glyphicon glyphicon-pencil"></i></a>
-                        <a href="<?php echo $pagina; ?>&id=<?php echo $admin["id"]; ?>" class=" btn btn-danger quadrado"
-                           title="Deletar"><i class="glyphicon glyphicon-trash"></i></a>
+                        <a href="?p=alterar_clientes&id=<?php echo $d["id"]; ?>"class=" btn btn-primary quadrado" title="Editar">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+                        <?php if(excluir($tabela)){
+                            dlConfirma($pagina."&acao=deletar&id=".$d["id"],"Deletar Cliente","Tem certeza que quer deletar esse Cliente ?","glyphicon-trash");
+                        }?>
+                        <a href="?p=alterar_cliente-senha&id=<?php echo $d["id"]; ?>"
+                           class=" btn btn-warning quadrado" title="Alterar Senha">
+                            <i class="glyphicon glyphicon-erase"></i>
+                        </a>
                     </td>
                 </tr>
             <?php } ?>

@@ -151,3 +151,19 @@ body{
 .cur{
     padding: 0 3px;
 }
+
+#caixa{
+    text-align: center;
+}
+#caixa button{
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
+    padding: 5px;
+}
+#caixa a{
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
+    padding: 5px;
+}

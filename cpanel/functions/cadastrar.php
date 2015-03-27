@@ -1,6 +1,6 @@
 <?php
 
-function cadastrar($table, $values, $img=null)
+function cadastro($table, $values, $img=null)
 {
     $db = Conexao::getInstance(); // CONNECT
 

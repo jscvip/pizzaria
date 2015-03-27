@@ -27,20 +27,25 @@ if (isset($_GET)) {
                     echo "Erro: " . $e->getMessage();
                 }
                 ?>
-            <?php }elseif ($_GET["acao"] == "deletar") {
-                $id = $_GET["id"];
-                $pdo = Conexao::getInstance();
-                try {
-                    $update = $pdo->prepare("DELETE FROM " . $tabela . " WHERE id=" . $id);
-                    $update->execute();
+            <?php } elseif ($_GET["acao"] == "deletar") {
+                if (isset($_GET["id"])) {
+                    $id = $_GET["id"];
 
-                    if ($update->rowCount() == 1) {
-                        $sucesso = "Deletado com sucesso!";
-                    } else {
-                        $erro = "Não foi possível Deletar!";
+                    if (excluir($tabela)) {
+                        $pdo = Conexao::getInstance();
+                        try {
+                            $update = $pdo->prepare("DELETE FROM " . $tabela . " WHERE id=" . $id);
+                            $update->execute();
+
+                            if ($update->rowCount() == 1) {
+                                $sucesso = "Deletado com sucesso!";
+                            } else {
+                                $erro = "Não foi possível Deletar!";
+                            }
+                        } catch (PDOException $e) {
+                            echo "Erro: " . $e->getMessage();
+                        }
                     }
-                } catch (PDOException $e) {
-                    echo "Erro: " . $e->getMessage();
                 }
             }
         }
@@ -48,7 +53,7 @@ if (isset($_GET)) {
 }
 ?>
 <div class="panel panel-info">
-    <div class="panel-heading text-center">:.LISTADO ADMINISTRADORES.:</div>
+    <div class="panel-heading text-center">:.LISTANDO ADMINISTRADORES.:</div>
     <div class="panel-body">
         <?php $dados = listar($tabela); ?>
         <table class="table table-hover" style="margin-bottom: 0;">
@@ -68,8 +73,8 @@ if (isset($_GET)) {
                 'itemData' => $dados,
                 'perPage' => 5,
                 'delta' => 7,
-                'attributes'=>"class='pg btn btn-default'",
-                'curPageLinkClassName'=>'btn btn-info cur',
+                'attributes' => "class='pg btn btn-default'",
+                'curPageLinkClassName' => 'btn btn-info cur',
                 //'append' => true,
                 //'separator' => ' | ',
                 //'clearIfVoid' => false,
@@ -79,7 +84,7 @@ if (isset($_GET)) {
                 //'mode'  => 'Sliding',    //try switching modes,
                 'mode' => 'Jumping',
             );
-            $pager = & Pager::factory($params);
+            $pager = &Pager::factory($params);
             $page_data = $pager->getPageData();
             $links = $pager->getLinks();
             foreach ($page_data as $admin) { ?>
@@ -118,16 +123,13 @@ if (isset($_GET)) {
                         <?PHP } ?>
                     </td>
                     <td style="text-align: center; padding: 2px;">
-                        <a href="?p=alterar_administradores&id=<?php echo $admin["id"]; ?>"class=" btn btn-primary quadrado" title="Editar">
+                        <a href="?p=alterar_administradores&id=<?php echo $admin["id"]; ?>"
+                           class=" btn btn-primary quadrado" title="Editar">
                             <i class="glyphicon glyphicon-pencil"></i>
                         </a>
-                        <form method="POST" action="<?php echo $pagina; ?>&acao=deletar&id=<?php echo $admin["id"]; ?>" style="display:inline">
-                            <button class="btn btn-danger quadrado" id="deletar" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Deletar" data-message="Tem certeza que quer deletar esse administrador ?">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </button>
-
-                        </form>
-                        <a href="?p=alterar_admin-senha&id=<?php echo $admin["id"]; ?>" class=" btn btn-warning quadrado" title="Alterar Senha">
+                        <?php dlConfirma($pagina."&acao=deletar&id=".$admin["id"],"Deletar Administrador","Tem certeza que quer deletar esse administrador ?","glyphicon-trash")?>
+                        <a href="?p=alterar_admin-senha&id=<?php echo $admin["id"]; ?>"
+                           class=" btn btn-warning quadrado" title="Alterar Senha">
                             <i class="glyphicon glyphicon-erase"></i>
                         </a>
                     </td>

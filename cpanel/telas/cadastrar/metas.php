@@ -3,7 +3,7 @@ if (isset($_POST)) {
     if ($_POST != null) {
        // print_r($_POST);
 
-        if (cadastrar("metas", $_POST)) {
+        if (cadastro("metas", $_POST)) {
             $sucesso = "Meta gravado com sucesso!";
         } else {
             $erro = "Não foi possivel gravar meta!";

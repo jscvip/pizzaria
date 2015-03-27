@@ -62,10 +62,14 @@ function obrigatorio($nomeCampo="", $campo = null, $tipo=null)
         }
 }
 
-function listar($tabela){
+function listar($tabela,$parametros=null){
     $pdo = Conexao::getInstance();
     try{
-        $listar = $pdo->prepare("SELECT * FROM ".$tabela);
+        if(is_null($parametros)) {
+            $listar = $pdo->prepare("SELECT * FROM " . $tabela);
+        }else{
+            $listar = $pdo->prepare("SELECT * FROM " . $tabela." WHERE ".$parametros);
+        }
         $listar->execute();
 
         if($listar->rowCount() > 0){
@@ -118,6 +122,34 @@ function listarIngredientes($tabela, $id){
     }
 }
 
+function listarMetas($tabela, $id){
+    $pdo = Conexao::getInstance();
+    try{
+        $listar = $pdo->prepare("SELECT * FROM ".$tabela." WHERE id_tipo_meta=".$id);
+        $listar->execute();
+
+        if($listar->rowCount() > 0){
+            $dados = $listar->fetch(PDO::FETCH_ASSOC);
+            return $dados;
+        }else{
+            return false;
+        }
+    }catch (PDOException $e){
+        echo "Erro: ".$e->getMessage();
+    }
+}
+
+function dlConfirma($url,$titulo,$mensagem,$icone){?>
+    <form method="POST" action="<?php echo $url; ?>"
+          style="display:inline">
+        <button class="btn btn-danger quadrado" id="deletar" type="button" data-toggle="modal"
+                data-target="#confirmDelete" data-title="<?php echo $titulo;?>"
+                data-message="<?php echo $mensagem;?>">
+            <i class="glyphicon <?php echo $icone;?>"></i>
+        </button>
+
+    </form>
+<?php }
 
 function tiraespecialeespaco($string) {
 
@@ -130,4 +162,22 @@ $what = array( 'ä','ã','à','á','â','ê','ë','è','é','ï','ì','í','ö',
     // devolver a string
     $teste = str_replace($what, $by, $string);
     return str_replace(" ","" , $teste);
+}
+
+function listarBusca($tabela,$campoBusca,$busca){
+    $pdo = Conexao::getInstance();
+    try{
+       // echo "SELECT * FROM ".$tabela." WHERE ".$campoBusca." LIKE %".$busca."%";
+        $listaBusca = $pdo->prepare("SELECT * FROM ".$tabela." WHERE ".$campoBusca." LIKE '%".$busca."%'");
+        $listaBusca->execute();
+
+        if($listaBusca->rowCount()>0){
+            $dados = $listaBusca->fetchAll(PDO::FETCH_ASSOC);
+            return $dados;
+        }else{
+            return false;
+        }
+    }catch (PDOException $e){
+        echo "Erro: ".$e->getMessage();
+    }
 }

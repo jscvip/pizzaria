@@ -4,7 +4,7 @@ if (isset($_POST)) {
         if ($_POST["ingrediente"] != "") {
             if(verificaCadastro("ingredientes","nome",$_POST["ingrediente"])) {
 
-                if (cadastrar("ingredientes", $_POST)) {
+                if (cadastro("ingredientes", $_POST)) {
                     $sucesso = "Ingredientes gravada com sucesso!";
                 } else {
                     $erro = "Não foi possivel gravar ingrediente!";

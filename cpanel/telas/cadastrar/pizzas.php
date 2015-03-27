@@ -25,11 +25,11 @@ if (isset($_POST)) {
                     $redimensionar->saveToFile("../images/fotos/" . $nome_foto);
 
                     if ($redimensionar->isValid()) {
-                        $redimensionar = $fotos->resize(270, 210, "fill");
+                        $redimensionar = $fotos->resize(310, 300, "fill");
                         $redimensionar->saveToFile("../images/detalhes/" . $nome_foto);
 
                     if (verificaCadastro("pizzas", "nome", $_POST["nome"])) {
-                            if (cadastrar("pizzas", $_POST, $nome_foto)) {
+                            if (cadastro("pizzas", $_POST, $nome_foto)) {
                                 $sucesso = "Pizza gravado com sucesso!";
                                 $_POST = null;
                             } else {
@@ -51,7 +51,7 @@ if (isset($_POST)) {
                         $erro = "Não fo possivel redimensionar a foto!";
                     }
 
-                } catch (WideImage_InvalidImageSourceException $e) {
+                } catch (WideImage_Exception $e) {
                     $erro = "Erro: " . $e->getMessage();
                 }
 
